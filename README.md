@@ -3,14 +3,14 @@
 ## Command
 
 - `npm start` to start the development server
-- `npm build` build a production website
+- `npm run build` to build a production website on `dist` folder
 
 ### Included Out of the Box
 
 - PostCSS
 - SASS
 - Bootstrap
-- jQery
+- jQuery
 
 ### TODO
 
