@@ -1,4 +1,4 @@
-const autoPrefixer = require("autoprefixer");
+const autoprefixer = require("autoprefixer");
 
 exports.postCSSPlugins = [
   require("postcss-import"),
@@ -6,7 +6,7 @@ exports.postCSSPlugins = [
   require("postcss-simple-vars"),
   require("postcss-nested"),
   require("postcss-hexrgba"),
-  autoPrefixer
+  autoprefixer
 ];
 
 exports.postCSSAutoPrefixer = {
