@@ -12,10 +12,6 @@ exports.postCSSPlugins = [
 exports.postCSSAutoPrefixer = {
   loader: "postcss-loader",
   options: {
-    plugins: {
-      autoprefixer: {
-        browsers: ["last 5 versions", "> 3%"]
-      }
-    }
+    plugins: [autoprefixer]
   }
 };

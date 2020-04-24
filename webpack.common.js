@@ -1,45 +1,46 @@
+const CopyPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const fse = require("fs-extra");
 
-let staticPages = fse
+const svgSprite =  new CopyPlugin([{
+  from: './images/icons/sprite.svg',
+  to: 'images/icons',
+}]);
+
+let htmlFiles = fse
   .readdirSync("./static")
-  .filter(function(file) {
+  .filter(function (file) {
     return file.endsWith(".html");
   })
-  .map(function(page) {
+  .map(function (page) {
     return new HtmlWebpackPlugin({
       filename: page,
       template: `./static/${page}`,
-      minify: {
-        removeAttributeQuotes: true,
-        collapseWhitespace: true,
-        removeComments: true
-      }
     });
-  });
+  })[0];
+
 
 module.exports = {
   entry: {
     main: "./scripts/app.js",
     vendor: "./scripts/vendor.js"
   },
-  plugins: staticPages,
+
+  plugins: [
+    htmlFiles,
+    svgSprite,
+  ],
   module: {
-    rules: [
-      {
+    rules: [{
         test: /\.html$/,
-        use: ["html-loader"]
-      },
-      {
-        test: /\.(svg|png|jpg|jpeg|gif)$/,
         use: {
-          loader: "file-loader",
+          loader: 'html-srcsets-loader',
           options: {
-            name: "[name].[hash].[ext]",
-            outputPath: "images"
+            interpolate: true,
+            attrs: ['img:src', ':srcset']
           }
         }
-      }
+      },
     ]
   }
 };

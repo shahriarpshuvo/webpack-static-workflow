@@ -42,7 +42,16 @@ module.exports = merge(common, {
             options: { plugins: postcss.postCSSPlugins }
           }
         ]
-      }
+      },
+      {
+        test: /\.(svg|png|jpg|jpeg|gif)$/,
+        use: {
+          loader: "file-loader",
+          options: {
+            name: "[name].[ext]",
+          }
+        }
+      },
     ]
   }
 });

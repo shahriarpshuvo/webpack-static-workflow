@@ -2,8 +2,9 @@
 
 ## Command
 
-- `npm start` to start the development server
-- `npm run build` to build a production website on `dist` folder
+- `npm start` - start the development server (localhost:3000)
+- `npm run build` - Production ready websites (without Static Optimization) on the `build` folder
+- `npm run dist` - Distribution ready websites (with Static Optimization) on the `dist` folder
 
 ### Included Out of the Box
 
