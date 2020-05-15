@@ -1,4 +1,4 @@
-# :package: Webpack Workflow :gift:
+# :hammer_and_wrench: Webpack Workflow 
 
 A modern webpack static workflow for writing modular javascript and highly organized css with postCSS or SASS(.scss).
 
@@ -21,5 +21,5 @@ A modern webpack static workflow for writing modular javascript and highly organ
 
 ### TODO
 
-- [] :pencil2: Write Documentation
-- [] :pushpin: Adding React to the workflow
+- [ ] :pencil2: Writing Documentation
+- [ ] :pushpin: Adding React to the workflow
