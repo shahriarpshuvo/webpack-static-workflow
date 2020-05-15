@@ -1,4 +1,4 @@
-# :hammer_and_wrench: Webpack Workflow 
+# :hammer_and_wrench: Webpack Workflow
 
 A modern webpack static workflow for writing modular javascript and highly organized css with postCSS or SASS(.scss).
 
