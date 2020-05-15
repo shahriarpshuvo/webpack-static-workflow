@@ -1,8 +1,8 @@
 const path = require("path");
 const common = require("./webpack.common");
-const postcss = require("./post-css.config");
+const postcss = require("./postcss.config");
 const merge = require("webpack-merge");
-const CleanWebpackPlugin = require("clean-webpack-plugin");
+const {CleanWebpackPlugin} = require("clean-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
@@ -58,8 +58,8 @@ const imageFiles = new ImageminPlugin({
 module.exports = merge(common, {
   mode: "production",
   output: {
-    filename: "[name].[contentHash].bundle.js",
-    path: path.resolve(__dirname, "dist")
+    filename: "[name].[contentHash].js",
+    path: path.resolve(__dirname, "docs")
   },
   optimization: {
     minimizer: [new OptimizeCssAssetsPlugin(), new TerserPlugin()]
@@ -111,6 +111,7 @@ module.exports = merge(common, {
           loader: "file-loader",
           options: {
             name: "[name].[contentHash].[ext]",
+            esModule: false,
             outputPath: "images"
           }
         }

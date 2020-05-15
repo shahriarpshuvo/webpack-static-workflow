@@ -1,6 +1,6 @@
 const path = require("path");
 const common = require("./webpack.common");
-const postcss = require("./post-css.config");
+const postcss = require("./postcss.config");
 const merge = require("webpack-merge");
 
 module.exports = merge(common, {
@@ -49,6 +49,7 @@ module.exports = merge(common, {
           loader: "file-loader",
           options: {
             name: "[name].[ext]",
+            esModule: false,
           }
         }
       },

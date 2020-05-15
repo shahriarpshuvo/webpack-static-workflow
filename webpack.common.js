@@ -2,12 +2,13 @@ const CopyPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const fse = require("fs-extra");
 
-const svgSprite =  new CopyPlugin([{
+const svgSprite = new CopyPlugin([{
   from: './images/icons/sprite.svg',
-  to: 'images/icons',
+  to: 'images/icons/sprite.svg',
+  cacheTransform: true,
 }]);
 
-let htmlFiles = fse
+let htmlFilesPlugins = fse
   .readdirSync("./static")
   .filter(function (file) {
     return file.endsWith(".html");
@@ -16,31 +17,33 @@ let htmlFiles = fse
     return new HtmlWebpackPlugin({
       filename: page,
       template: `./static/${page}`,
+      minify: {
+        removeAttributeQuotes: false,
+        collapseWhitespace: false,
+        removeComments: false,
+      }
     });
-  })[0];
+  });
 
+const commonPlugins = htmlFilesPlugins;
+commonPlugins.push(svgSprite)
 
 module.exports = {
   entry: {
     main: "./scripts/app.js",
     vendor: "./scripts/vendor.js"
   },
-
-  plugins: [
-    htmlFiles,
-    svgSprite,
-  ],
+  plugins: commonPlugins,
   module: {
     rules: [{
-        test: /\.html$/,
-        use: {
-          loader: 'html-srcsets-loader',
-          options: {
-            interpolate: true,
-            attrs: ['img:src', ':srcset']
-          }
+      test: /\.html$/,
+      use: {
+        loader: 'html-srcsets-loader',
+        options: {
+          interpolate: true,
+          attrs: ['img:src', ':srcset']
         }
-      },
-    ]
+      }
+    }]
   }
 };
