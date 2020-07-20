@@ -1,17 +1,19 @@
 const CopyPlugin = require('copy-webpack-plugin');
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-const fse = require("fs-extra");
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const fse = require('fs-extra');
 
-const svgSprite = new CopyPlugin([{
-  from: './images/icons/sprite.svg',
-  to: 'images/icons/sprite.svg',
-  cacheTransform: true,
-}]);
+const svgSprite = new CopyPlugin([
+  {
+    from: './images/icons/sprite.svg',
+    to: 'images/icons/sprite.svg',
+    cacheTransform: true
+  }
+]);
 
-let htmlFilesPlugins = fse
-  .readdirSync("./static")
+let [htmlFilesPlugins] = fse
+  .readdirSync('./static')
   .filter(function (file) {
-    return file.endsWith(".html");
+    return file.endsWith('.html');
   })
   .map(function (page) {
     return new HtmlWebpackPlugin({
@@ -20,30 +22,29 @@ let htmlFilesPlugins = fse
       minify: {
         removeAttributeQuotes: false,
         collapseWhitespace: false,
-        removeComments: false,
+        removeComments: false
       }
     });
   });
 
-const commonPlugins = htmlFilesPlugins;
-commonPlugins.push(svgSprite)
-
 module.exports = {
   entry: {
-    main: "./scripts/app.js",
-    vendor: "./scripts/vendor.js"
+    main: './scripts/app.js',
+    vendor: './scripts/vendor.js'
   },
-  plugins: commonPlugins,
+  plugins: [htmlFilesPlugins, svgSprite],
   module: {
-    rules: [{
-      test: /\.html$/,
-      use: {
-        loader: 'html-srcsets-loader',
-        options: {
-          interpolate: true,
-          attrs: ['img:src', ':srcset']
+    rules: [
+      {
+        test: /\.html$/,
+        use: {
+          loader: 'html-srcsets-loader',
+          options: {
+            interpolate: true,
+            attrs: ['img:src', ':srcset']
+          }
         }
       }
-    }]
+    ]
   }
 };
